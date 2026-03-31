@@ -1,0 +1,33 @@
+{
+  "clientes": [
+    {
+      "id": "1",
+      "cliente": "Daiane",
+      "CPF": "100.200.300-10",
+      "email": "daiane@teste"
+    },
+    {
+      "id": "2",
+      "cliente": "Helena",
+      "CPF": "300.400.500-10",
+      "email": "helena@teste.com"
+    },
+    {
+      "cliente": "Nelson",
+      "CPF": "200.300.400-20",
+      "email": "nelson@teste",
+      "id": "SBSZbiCQArc"
+    }
+  ],
+  "contas": [
+    {
+      "id": "1",
+      "numero": 1001,
+      "clienteId": 1,
+      "tipo": "Corrente",
+      "saldo": 0,
+      "status": "Ativa"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

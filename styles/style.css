@@ -1,0 +1,140 @@
+:root {
+      --primary: #6c5ce7;
+      --bg: #dfe6e9;
+      --text: #2d3436;
+    }
+
+    html {
+    scroll-behavior: smooth; /*para que a transição dos itens sejam mais suaves */
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 1.0rem 3.0rem rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    /* Header */
+    header {
+      background-color:rgb(95, 154, 241);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .saudacao {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    /* Cores no filtro */
+
+    .entrada {
+      color: green;
+      font-weight: bold;
+    }
+
+    .saida {
+      color: red;
+      font-weight: bold;
+    }
+
+
+    /* Actions */
+    .actions {
+      padding: 20px;
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    button {
+      flex: 1;
+      padding: 1.0rem;
+      border: none;
+      border-radius: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      color: white;
+    }
+
+    .btn-edit {
+      background-color: #00b894;
+    }
+
+    .btn-excl {
+      background-color: #d63031;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Extract Area */
+    .extract {
+      padding: 20px;
+    }
+
+    .extract-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      color: #636e72;
+      font-size: 0.9rem;
+    }
+
+    .logo { 
+    height: 37px; /* aumenta a altura da logo */ 
+    border-radius: 50px 50px 50px 50px / 25px 25px 25px 25px;;
+    }
+
+    /*Formulário*/
+    form input[type="text"],
+    form input[type="email"],
+    form select  {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.0rem;
+      background-color: #f1f1f1;
+      color: #636e72;
+      font-size: 0.9rem;
+    }
