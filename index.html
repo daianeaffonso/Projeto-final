@@ -48,9 +48,20 @@
   <h3>Dados da Conta</h3>
   <div id="dadosConta"></div>
 
+  <div class="row px-3" id="lista-contas"></div>
+
+    <section class="actions">
+      <button class="btn-edit" onclick="novaTransacao('deposito')">
+        Editar Status da conta
+      </button>
+      <button class="btn-excl" onclick="excluirConta()">
+        Deletar Conta
+      </button>
+    </section>
+
     <section class="extract">
         <div class="extract-header">
-          <h3>Extrato Cliente</h3>
+          <h3>Transações realizadas pelo cliente</h3>
           <select id="filtro-tipo" onchange="renderizarExtrato()">
             <option value="todos">Todos</option>
             <option value="entrada">Entradas 💰</option>
@@ -74,17 +85,6 @@
       
         
     </section>
-
-    <section class="actions">
-      <button class="btn-edit" onclick="novaTransacao('deposito')">
-        Editar Status da conta
-      </button>
-      <button class="btn-excl" onclick="novaTransacao('pagamento')">
-        Deletar Conta
-      </button>
-    </section>
-
-      <!-- <div id="filtros"></div> -->
 
         <footer>
           <p>Desenvolvido por Daiane Affonso de Oliveira v.01</p>

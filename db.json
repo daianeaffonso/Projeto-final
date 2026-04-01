@@ -13,10 +13,10 @@
       "email": "helena@teste.com"
     },
     {
+      "id": "ihWQpEDEWrY",
       "cliente": "Nelson",
-      "CPF": "200.300.400-20",
-      "email": "nelson@teste",
-      "id": "SBSZbiCQArc"
+      "CPF": "110.110.000-00",
+      "email": "nelson@gmail"
     }
   ],
   "contas": [
@@ -24,6 +24,14 @@
       "id": "1",
       "numero": 1001,
       "clienteId": 1,
+      "tipo": "Corrente",
+      "saldo": 0,
+      "status": "Ativa"
+    },
+    {
+      "id": "2",
+      "numero": 2030,
+      "clienteId": 2,
       "tipo": "Corrente",
       "saldo": 0,
       "status": "Ativa"
