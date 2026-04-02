@@ -68,3 +68,31 @@ async function excluirContaService(id) {
   return await resposta.json();
 }
 
+// ================== TRANSAÇÕES ==================
+async function obterTransacoesService(contaId) {
+  const resposta = await fetch(`http://localhost:3000/transacoes?contaId=${contaId}`);
+  return await resposta.json();
+}
+
+async function cadastrarTransacaoService(transacao) {
+  const resposta = await fetch("http://localhost:3000/transacoes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(transacao),
+  });
+  return await resposta.json();
+}
+
+// Buscar conta pelo ID
+async function obterContaPorIdService(id) {
+  try {
+    const resposta = await fetch(`http://localhost:3000/contas/${id}`);
+    if (!resposta.ok) {
+      throw new Error("Erro ao buscar conta pelo id");
+    }
+    return await resposta.json();
+  } catch (erro) {
+    console.error("Erro em obterContaPorIdService:", erro);
+    return null;
+  }
+}

@@ -7,6 +7,7 @@ const botaoSalvar = document.querySelector("#salvar");
 
 exibirClientes();
 exibirContas(); // já carrega as contas na inicialização
+carregarContasNoSelect();
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -47,11 +48,12 @@ async function salvarCliente(cliente) {
     form.reset();
     exibirClientes();
     exibirContas(); // atualiza lista de contas
+    carregarContasNoSelect();
+
   } catch (error) {
     console.log(error);
   }
 }
-
 
 function preencheFormularioEdicao(event) {
   const id = event.target.dataset.id;
@@ -122,3 +124,89 @@ function excluirConta(id) {
       .catch(console.log);
   }
 }
+
+// ================== TRANSAÇÕES ==================
+const formTransacao = document.querySelector("#form-transacao");
+const selectConta = document.querySelector("#contaId");
+const selectTipo = document.querySelector("#tipoTransacao");
+const campoValor = document.querySelector("#valor");
+
+formTransacao.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const contaId = selectConta.value;
+  const tipo = selectTipo.value;
+  const valor = parseFloat(campoValor.value);
+
+  if (!contaId || !tipo || !valor || valor <= 0) {
+    alert("Preencha todos os campos corretamente!");
+    
+
+    return;
+  }
+
+  // Buscar conta
+    // Buscar conta pelo id
+    const conta = await obterContaPorIdService(contaId);
+
+    if (!conta) {
+        alert("Conta não encontrada!");
+        return;
+    }
+
+
+  let novoSaldo = conta.saldo;
+  if (tipo === "deposito") {
+    novoSaldo += valor;
+  } else {
+    if (valor > conta.saldo) {
+      alert("Saldo insuficiente!");
+      return;
+    }
+    novoSaldo -= valor;
+  }
+
+  // Atualizar saldo da conta
+  await editarContaService({ ...conta, saldo: novoSaldo });
+
+  // Registrar transação
+  const transacao = {
+    id: crypto.randomUUID(),
+    contaId,
+    tipo,
+    valor,
+    descricao: tipo.toUpperCase(),
+    novoSaldo,
+    data: new Date().toLocaleString()
+  };
+  await cadastrarTransacaoService(transacao);
+
+  campoValor.value = "";
+  selectTipo.value = "";
+  exibirTransacoes(contaId);
+});
+
+async function carregarContasNoSelect() {
+  const clientes = await obterClientesService();
+  const selectConta = document.getElementById("contaId");
+  selectConta.innerHTML = "<option value=''>Selecione a conta</option>";
+
+  for (const cliente of clientes) {
+    const contas = await obterContasPorClienteService(cliente.id);
+    contas.forEach(conta => {
+      const option = document.createElement("option");
+      option.value = conta.id;
+      option.textContent = `${conta.numero} - ${cliente.cliente}`;
+      selectConta.appendChild(option);
+    });
+  }
+}
+
+selectConta.addEventListener("change", () => {
+  const contaId = selectConta.value;
+  if (contaId) {
+    exibirTransacoes(contaId); // carrega o extrato da conta selecionada
+  } else {
+    document.getElementById("lista-transacoes").innerHTML = "";
+  }
+});

@@ -55,40 +55,52 @@
             <div id="lista-contas" class="row"></div>
     </section>
 
+<!-- ================== TRANSAÇÕES ================== -->
+<section>
+  <h2>Transações</h2>
+  <form id="form-transacao" class="mb-4">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="contaId" class="form-label">Conta</label>
+        <select class="form-select" id="contaId">
+          <option value="">Selecione a conta</option>
+          <!-- opções preenchidas dinamicamente -->
+        </select>
+      </div>
 
-    <!-- ================== TRANSAÇÕES ================== -->
-    <section>
-      <h2>Transações</h2>
-      <form id="form-transacao" class="mb-4">
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label for="contaId" class="form-label">Conta</label>
-            <select class="form-select" id="contaId">
-              <option value="">Selecione a conta</option>
-              <!-- opções preenchidas dinamicamente -->
-            </select>
-          </div>
+      <div class="col-md-4 mb-3">
+        <label for="tipoTransacao" class="form-label">Tipo</label>
+        <select class="form-select" id="tipoTransacao">
+          <option value="">Selecione</option>
+          <option value="deposito">Depósito</option>
+          <option value="saque">Saque</option>
+          <option value="pagamento">Pagamento</option>
+        </select>
+      </div>
 
-          <div class="col-md-4 mb-3">
-            <label for="tipoTransacao" class="form-label">Tipo</label>
-            <select class="form-select" id="tipoTransacao">
-              <option value="">Selecione</option>
-              <option value="Depósito">Depósito</option>
-              <option value="Saque">Saque</option>
-            </select>
-          </div>
+      <div class="col-md-4 mb-3">
+        <label for="valor" class="form-label">Valor</label>
+        <input type="number" class="form-control" id="valor" placeholder="Digite o valor" />
+      </div>
+    </div>
 
-          <div class="col-md-4 mb-3">
-            <label for="valor" class="form-label">Valor</label>
-            <input type="number" class="form-control" id="valor" placeholder="Digite o valor" />
-          </div>
-        </div>
+    <button type="submit" class="btn btn-warning">Registrar Transação</button>
+  </form>
 
-        <button type="submit" class="btn btn-warning">Registrar Transação</button>
-      </form>
-
-      <div id="lista-transacoes" class="row"></div>
-    </section>
+  <h3>Extrato</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th>Descrição</th>
+        <th>Saldo Novo</th>
+      </tr>
+    </thead>
+    <tbody id="lista-transacoes"></tbody>
+  </table>
+</section>
       <footer>
         <p>Desenvolvido por Daiane Affonso de Oliveira v.01</p>
       </footer>

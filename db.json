@@ -1,34 +1,63 @@
 {
   "clientes": [
     {
-      "id": "1",
       "cliente": "Daiane",
-      "CPF": "100.200.300-10",
-      "email": "daiane@teste"
+      "CPF": "123456789-01",
+      "email": "daiane@gmail",
+      "id": "ZLrNoQfTF0E"
     },
     {
-      "id": "2",
-      "cliente": "Helena",
-      "CPF": "300.400.500-10",
-      "email": "helena@teste.com"
+      "cliente": "Nelson",
+      "CPF": "110.110.000-00",
+      "email": "nelson@gmail",
+      "id": "TwDYwv-292g"
     }
   ],
   "contas": [
     {
-      "id": "1",
-      "numero": 1001,
-      "clienteId": 1,
+      "id": "CNHCEk2oLdk",
+      "numero": 0,
+      "clienteId": "ZLrNoQfTF0E",
       "tipo": "Corrente",
-      "saldo": 0,
+      "saldo": 1000,
       "status": "Ativa"
     },
     {
-      "id": "2",
-      "numero": 2030,
-      "clienteId": 2,
+      "id": "_EbBuvHym2Q",
+      "numero": 684,
+      "clienteId": "TwDYwv-292g",
       "tipo": "Corrente",
-      "saldo": 0,
+      "saldo": 500,
       "status": "Ativa"
+    }
+  ],
+  "transacoes": [
+    {
+      "id": "7easzuTh5fY",
+      "contaId": "CNHCEk2oLdk",
+      "tipo": "deposito",
+      "valor": 1000,
+      "descricao": "DEPOSITO",
+      "novoSaldo": 1000,
+      "data": "01/04/2026, 23:26:39"
+    },
+    {
+      "id": "Bvp6nlfNHT4",
+      "contaId": "_EbBuvHym2Q",
+      "tipo": "deposito",
+      "valor": 1000,
+      "descricao": "DEPOSITO",
+      "novoSaldo": 1000,
+      "data": "01/04/2026, 23:26:56"
+    },
+    {
+      "id": "czahvS6JlM0",
+      "contaId": "_EbBuvHym2Q",
+      "tipo": "saque",
+      "valor": 500,
+      "descricao": "SAQUE",
+      "novoSaldo": 500,
+      "data": "01/04/2026, 23:27:04"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

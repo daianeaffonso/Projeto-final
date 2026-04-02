@@ -101,3 +101,30 @@ async function exibirContas() {
     });
   }
 }
+
+// ================== TRANSAÇÕES ==================
+
+
+async function exibirTransacoes(contaId) {
+  const lista = document.getElementById("lista-transacoes");
+  lista.innerHTML = "";
+
+  const transacoes = await obterTransacoesService(contaId);
+
+  if (transacoes.length === 0) {
+    lista.innerHTML = `<tr><td colspan="5">Nenhuma transação encontrada para esta conta.</td></tr>`;
+    return;
+  }
+
+  transacoes.forEach(t => {
+    const linha = document.createElement("tr");
+    linha.innerHTML = `
+      <td>${t.data}</td>
+      <td>${t.tipo}</td>
+      <td class="${t.tipo === 'deposito' ? 'entrada' : 'saida'}">R$ ${t.valor.toFixed(2)}</td>
+      <td>${t.descricao}</td>
+      <td>R$ ${t.novoSaldo.toFixed(2)}</td>
+    `;
+    lista.appendChild(linha);
+  });
+}
