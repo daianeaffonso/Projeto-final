@@ -30,7 +30,7 @@ function renderizaClientes(clientes) {
 
     const divBotoes = criaElemento("div", "d-flex gap-2");
 
-    const botaoEditar = criaElemento("button", "btn btn-primary");
+    const botaoEditar = criaElemento("button", "btn btn-success");
     botaoEditar.innerText = "Editar";
     botaoEditar.setAttribute("data-id", cliente.id);
     botaoEditar.addEventListener("click", preencheFormularioEdicao);
@@ -54,4 +54,50 @@ function criaElemento(elemento, classes) {
   novoElemento.classList.add(...classes.split(" "));
   //   classes.split(" ").forEach((classe) => novoElemento.classList.add(classe));
   return novoElemento;
+}
+
+// ================== CONTAS ==================
+async function exibirContas() {
+  const clientes = await obterClientesService();
+  const listaContas = document.getElementById("lista-contas");
+  listaContas.innerHTML = "";
+
+  for (const cliente of clientes) {
+    const contas = await obterContasPorClienteService(cliente.id);
+    contas.forEach(conta => {
+      const divCol = criaElemento("div", "col-md-4 mb-3");
+      const divCard = criaElemento("div", "card");
+      const divCardBody = criaElemento("div", "card-body");
+
+      const h5 = criaElemento("h5", "card-title");
+      h5.innerText = `Conta ${conta.numero}`;
+
+      const pCliente = criaElemento("p", "card-text");
+      pCliente.innerText = `Cliente: ${cliente.cliente}`;
+
+      const pTipo = criaElemento("p", "card-text");
+      pTipo.innerText = `Tipo: ${conta.tipo}`;
+
+      const pSaldo = criaElemento("p", "card-text");
+      pSaldo.innerText = `Saldo: R$ ${conta.saldo}`;
+
+      const pStatus = criaElemento("p", "card-text");
+      pStatus.innerText = `Status: ${conta.status}`;
+
+      const divBotoes = criaElemento("div", "d-flex gap-2 mt-2");
+      const botaoEditar = criaElemento("button", "btn btn-success");
+      botaoEditar.innerText = "Editar";
+      botaoEditar.addEventListener("click", () => editarConta(conta));
+
+      const botaoExcluir = criaElemento("button", "btn btn-danger btn-sm");
+      botaoExcluir.innerText = "Excluir";
+      botaoExcluir.addEventListener("click", () => excluirConta(conta.id));
+
+      divBotoes.append(botaoEditar, botaoExcluir);
+      divCardBody.append(h5, pCliente, pTipo, pSaldo, pStatus, divBotoes);
+      divCard.appendChild(divCardBody);
+      divCol.appendChild(divCard);
+      listaContas.appendChild(divCol);
+    });
+  }
 }

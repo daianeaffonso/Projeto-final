@@ -11,12 +11,6 @@
       "cliente": "Helena",
       "CPF": "300.400.500-10",
       "email": "helena@teste.com"
-    },
-    {
-      "id": "ihWQpEDEWrY",
-      "cliente": "Nelson",
-      "CPF": "110.110.000-00",
-      "email": "nelson@gmail"
     }
   ],
   "contas": [

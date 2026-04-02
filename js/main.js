@@ -6,6 +6,7 @@ const campoId = document.querySelector("#id");
 const botaoSalvar = document.querySelector("#salvar");
 
 exibirClientes();
+exibirContas(); // já carrega as contas na inicialização
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -27,16 +28,30 @@ form.addEventListener("submit", (event) => {
     salvarCliente({ cliente, CPF, email });
   }
 });
-
+// ================== CLIENTES ==================
 async function salvarCliente(cliente) {
   try {
-    await cadastrarClienteService(cliente);
+    const novoCliente = await cadastrarClienteService(cliente);
+
+    // Cria conta automaticamente vinculada ao cliente
+    const novaConta = {
+      id: crypto.randomUUID(),
+      numero: Math.floor(Math.random() * 1000),
+      clienteId: novoCliente.id,
+      tipo: "Corrente",
+      saldo: 0,
+      status: "Ativa",
+    };
+    await cadastrarContaService(novaConta);
+
     form.reset();
     exibirClientes();
+    exibirContas(); // atualiza lista de contas
   } catch (error) {
     console.log(error);
   }
 }
+
 
 function preencheFormularioEdicao(event) {
   const id = event.target.dataset.id;
@@ -65,19 +80,45 @@ function editarCliente(clienteEditado) {
     });
 }
 
-function excluirCliente(event) {
+async function excluirCliente(event) {
   const result = confirm("Deseja mesmo excluir o cliente?");
   if (result) {
     const id = event.target.dataset.id;
-    excluirClienteService(id)
-      .then((resposta) => {
-        console.log(resposta);
-        exibirClientes();
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
+
+    try {
+      // Exclui o cliente
+      await excluirClienteService(id);
+
+      // Busca e exclui todas as contas vinculadas
+      const contas = await obterContasPorClienteService(id);
+      for (const conta of contas) {
+        await excluirContaService(conta.id);
+      }
+
+      // Atualiza a interface
+      exibirClientes();
+      exibirContas();
+    } catch (erro) {
+      console.log(erro);
+    }
   }
 }
 
 
+// ================== CONTAS ==================
+function editarConta(conta) {
+  const novoStatus = prompt("Digite o novo status da conta:", conta.status);
+  if (novoStatus) {
+    editarContaService({ ...conta, status: novoStatus })
+      .then(() => exibirContas())
+      .catch(console.log);
+  }
+}
+
+function excluirConta(id) {
+  if (confirm("Deseja mesmo excluir a conta?")) {
+    excluirContaService(id)
+      .then(() => exibirContas())
+      .catch(console.log);
+  }
+}
