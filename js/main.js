@@ -49,11 +49,11 @@ async function salvarCliente(cliente) {
     exibirClientes();
     exibirContas(); // atualiza lista de contas
     carregarContasNoSelect();
-
   } catch (error) {
     console.log(error);
   }
 }
+
 
 function preencheFormularioEdicao(event) {
   const id = event.target.dataset.id;
@@ -210,3 +210,5 @@ selectConta.addEventListener("change", () => {
     document.getElementById("lista-transacoes").innerHTML = "";
   }
 });
+
+

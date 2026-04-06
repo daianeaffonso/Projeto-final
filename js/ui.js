@@ -16,26 +16,26 @@ function renderizaClientes(clientes) {
       "div",
       "col-12 col-sm-6 col-md-4 col-lg-3 mb-3",
     );
-    const divCard = criaElemento("div", "card");
+    const divCard = criaElemento("div", "card shadow-sm border-0 rounded-3");
     const divCardBody = criaElemento("div", "card-body");
 
-    const h5 = criaElemento("h5", "card-title");
+    const h5 = criaElemento("h5", "card-title fw-bold text-primary mb-3");
     h5.innerText = cliente.cliente;
 
-    const paragrafoCPF = criaElemento("p", "card-text");
-    paragrafoCPF.innerText = cliente.CPF;
+    const paragrafoCPF = criaElemento("p", "card-text text-muted");
+    paragrafoCPF.innerText = formatarCPF(cliente.CPF);
 
     const paragrafoEmail = criaElemento("p", "card-text");
     paragrafoEmail.innerText = cliente.email;
 
     const divBotoes = criaElemento("div", "d-flex gap-2");
 
-    const botaoEditar = criaElemento("button", "btn btn-success");
+    const botaoEditar = criaElemento("button", "btn btn-outline-success btn-sm rounded-pill");
     botaoEditar.innerText = "Editar";
     botaoEditar.setAttribute("data-id", cliente.id);
     botaoEditar.addEventListener("click", preencheFormularioEdicao);
 
-    const botaoExcluir = criaElemento("button", "btn btn-danger");
+    const botaoExcluir = criaElemento("button", "btn btn-outline-danger btn-sm rounded-pill");
     botaoExcluir.innerText = "Excluir";
     botaoExcluir.setAttribute("data-id", cliente.id);
     botaoExcluir.addEventListener("click", excluirCliente);
@@ -66,10 +66,10 @@ async function exibirContas() {
     const contas = await obterContasPorClienteService(cliente.id);
     contas.forEach(conta => {
       const divCol = criaElemento("div", "col-md-4 mb-3");
-      const divCard = criaElemento("div", "card");
+      const divCard = criaElemento("div", "card shadow-sm border-0 rounded-3");
       const divCardBody = criaElemento("div", "card-body");
 
-      const h5 = criaElemento("h5", "card-title");
+      const h5 = criaElemento("h5", "card-title fw-bold text-primary mb-3");
       h5.innerText = `Conta ${conta.numero}`;
 
       const pCliente = criaElemento("p", "card-text");
@@ -85,11 +85,11 @@ async function exibirContas() {
       pStatus.innerText = `Status: ${conta.status}`;
 
       const divBotoes = criaElemento("div", "d-flex gap-2 mt-2");
-      const botaoEditar = criaElemento("button", "btn btn-success");
+      const botaoEditar = criaElemento("button", "btn btn-outline-success btn-sm rounded-pill");
       botaoEditar.innerText = "Editar";
       botaoEditar.addEventListener("click", () => editarConta(conta));
 
-      const botaoExcluir = criaElemento("button", "btn btn-danger btn-sm");
+      const botaoExcluir = criaElemento("button", "btn btn-outline-danger btn-sm rounded-pill");
       botaoExcluir.innerText = "Excluir";
       botaoExcluir.addEventListener("click", () => excluirConta(conta.id));
 
@@ -112,9 +112,25 @@ async function exibirTransacoes(contaId) {
   const transacoes = await obterTransacoesService(contaId);
 
   if (transacoes.length === 0) {
-    lista.innerHTML = `<tr><td colspan="5">Nenhuma transação encontrada para esta conta.</td></tr>`;
-    return;
-  }
+  lista.innerHTML = `
+    <tr>
+      <td colspan="5">
+        <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+          <span>Nenhuma transação encontrada para esta conta.</span>
+          <button id="btnOk" type="button" class="btn btn-sm btn-light ms-3">OK</button>
+        </div>
+      </td>
+    </tr>
+  `;
+
+  // adiciona evento para remover o alerta
+  document.getElementById("btnOk").addEventListener("click", () => {
+    const alerta = document.querySelector(".alert");
+    alerta.remove();
+  });
+
+  return;
+}
 
   transacoes.forEach(t => {
     const linha = document.createElement("tr");

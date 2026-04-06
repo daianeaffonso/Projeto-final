@@ -15,6 +15,7 @@
 <body>
   <div id="app" class="container py-4">
     <h1 class="mb-4 text-center">Gerenciador Financeiro</h1>
+    <div id="alert-container"></div>
 
     <!-- ================== CLIENTES ================== -->
     <section class="mb-5">
@@ -39,10 +40,10 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-success" id="salvar">Salvar Cliente</button>
+        <button type="submit" class="btn btn-outline-success btn-sm rounded-pill" id="salvar">Salvar Cliente</button>
       </form>
 
-      <div class="row" id="lista-clientes"></div>
+      <div class="row" id="lista-clientes" class="row g-4"></div>
     </section>
 
     <!-- ================== CONTAS ================== -->
@@ -88,14 +89,14 @@
   </form>
 
   <h3>Extrato</h3>
-  <table class="table">
-    <thead>
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-info">
       <tr>
         <th>Data</th>
         <th>Tipo</th>
         <th>Valor</th>
         <th>Descrição</th>
-        <th>Saldo Novo</th>
+        <th>Novo Saldo</th>
       </tr>
     </thead>
     <tbody id="lista-transacoes"></tbody>
